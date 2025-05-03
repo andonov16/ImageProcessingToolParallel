@@ -8,7 +8,7 @@
 
         public ImageModelManager()
         {
-            this.BatchSize = 32;
+            this.BatchSize = int.Parse(App.AppConfiguration["BatchSize"]);
         }
 
         public ImageModelManager(int batchSize)

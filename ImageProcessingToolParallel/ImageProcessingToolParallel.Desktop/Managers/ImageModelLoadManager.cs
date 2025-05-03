@@ -62,7 +62,6 @@ namespace ImageProcessingToolParallel.Desktop.Managers
                     }
 
                     await LoadAllThumbnailsAsync(batch, token);
-                    // Yield control back to UI thread so it can render
 
                     double progressPercentage = (i + this.BatchSize) / (double)imageModels.Length * 100;
                     progress.Report(progressPercentage);
@@ -93,7 +92,6 @@ namespace ImageProcessingToolParallel.Desktop.Managers
         }
 
 
-
         private async Task LoadAllThumbnailsAsync(IEnumerable<ImageModel> images, CancellationToken token)
         {
             int maxConcurrency = Environment.ProcessorCount * 2;
@@ -103,7 +101,7 @@ namespace ImageProcessingToolParallel.Desktop.Managers
             foreach (var image in images)
             {
                 await semaphore.WaitAsync(token);
-                var task = GetLoadThumbnailTask(image, token)
+                Task<(ImageModel image, BitmapImage thumbnail)> task = GetLoadThumbnailTask(image, token)
                     .ContinueWith(t =>
                     {
                         semaphore.Release();
@@ -115,7 +113,6 @@ namespace ImageProcessingToolParallel.Desktop.Managers
 
             // Batch update
             var results = new List<(ImageModel, BitmapImage)>();
-
             foreach (var completedTask in await Task.WhenAll(loadTasks))
             {
                 results.Add(completedTask);
@@ -132,7 +129,7 @@ namespace ImageProcessingToolParallel.Desktop.Managers
                 }
             }
 
-            // Handle leftovers
+            // Handle leftovers in the last batch
             if (results.Count > 0)
             {
                 await Application.Current.Dispatcher.InvokeAsync(() =>

@@ -2,6 +2,7 @@
 using ImageProcessingToolParallel.Desktop.Models;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -29,11 +30,16 @@ namespace ImageProcessingToolParallel.Desktop
                 {
                     ProcessesProgressBar.Visibility = Visibility.Hidden;
                 }
+                else
+                {
+                    ProcessesProgressBar.Visibility = Visibility.Visible;
+                }
             }
         }
 
 
         private ImageModelLoadManager imageModelLoadManager;
+        private ImageModelColorManager imageModelColorManager;
         private CancellationTokenSource cancellationTokenSource;
 
         public ObservableCollection<ThumbnailControl> ThumbnailControls { get; set; }
@@ -47,6 +53,7 @@ namespace ImageProcessingToolParallel.Desktop
             this.ThumbnailControlItems.ItemsSource = ThumbnailControls;
 
             this.imageModelLoadManager = new ImageModelLoadManager();
+            this.imageModelColorManager = new ImageModelColorManager();
             this.cancellationTokenSource = new CancellationTokenSource();
         }
 
@@ -56,15 +63,26 @@ namespace ImageProcessingToolParallel.Desktop
         {
             var progress = new Progress<double>(value =>
             {
-                ProgressValue = value; // Update the progress bar
+                ProgressValue = value;
             });
 
-            await imageModelLoadManager.LoadAllImagesAsThumbnailControlsAsync(this.ThumbnailControls, cancellationTokenSource.Token, progress);
+            await imageModelLoadManager.LoadAllImagesAsThumbnailControlsAsync(this.ThumbnailControls, this.cancellationTokenSource.Token, progress);
         }
 
         private void CancelAllButton_Click(object sender, RoutedEventArgs e)
         {
             cancellationTokenSource.Cancel();
+        }
+
+        private async void ToGrayScaleAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            IProgress<double> progress = new Progress<double>(value =>
+            {
+                ProgressValue = value;
+            });
+
+            progress.Report(0);
+            await imageModelColorManager.ChangeAllImagesColorAsync(this.ThumbnailControls, this.cancellationTokenSource.Token, progress);
         }
     }
 }

@@ -36,7 +36,7 @@
 
             <Button Grid.Column="1" x:Name="SearchButton" Content="&#xE721;" Style="{StaticResource ThumbnailButtonStyle}" MaxHeight="50" MaxWidth="50"/>
             <Button Grid.Column="2" x:Name="ResizeAllButton" Content="&#xE2B2;" Style="{StaticResource ThumbnailButtonStyle}"/>
-            <Button Grid.Column="3" x:Name="ToGrayScaleAllButton" Content="&#xE790;" Style="{StaticResource ThumbnailButtonStyle}"/>
+            <Button Grid.Column="3" x:Name="ToGrayScaleAllButton" Content="&#xE790;" Style="{StaticResource ThumbnailButtonStyle}" Click="ToGrayScaleAllButton_Click"/>
             <Button Grid.Column="4" x:Name="UndoChangesAllButton" Content="&#xE10E;" Style="{StaticResource ThumbnailButtonStyle}"/>
             <Button Grid.Column="5" x:Name="SaveAllButton" Content="&#xE105;" Style="{StaticResource ThumbnailButtonStyle}"/>
             <Button Grid.Column="6" x:Name="CancelAllButton" Content="&#xe711;" Style="{StaticResource ThumbnailButtonStyle}" Click="CancelAllButton_Click"/>

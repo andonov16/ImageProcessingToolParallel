@@ -14,13 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.ComponentModel;
 
 namespace ImageProcessingToolParallel.Desktop
 {
     /// <summary>
     /// Interaction logic for ThumbnailControl.xaml
     /// </summary>
-    public partial class ThumbnailControl : UserControl
+    public partial class ThumbnailControl : UserControl, INotifyPropertyChanged
     {
         public ImageModel ImageModel
         {
@@ -50,5 +51,11 @@ namespace ImageProcessingToolParallel.Desktop
                 control.DataContext = e.NewValue;
             }
         }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

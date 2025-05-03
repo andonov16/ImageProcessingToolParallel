@@ -9,6 +9,7 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Threading;
+using System.Diagnostics;
 
 namespace ImageProcessingToolParallel.Desktop.Managers
 {
@@ -30,7 +31,7 @@ namespace ImageProcessingToolParallel.Desktop.Managers
 
 
 
-        public async Task LoadAllImagesAsThumbnailControlsAsync(ObservableCollection<ThumbnailControl> thumbnailControls, CancellationToken token)
+        public async Task LoadAllImagesAsThumbnailControlsAsync(ObservableCollection<ThumbnailControl> thumbnailControls, CancellationToken token, IProgress<double> progress)
         {
             string[] imagesPaths = Directory.GetFiles(App.AppConfiguration["ImageDatasetPath"]);
             ImageModel[] imageModels = new ImageModel[imagesPaths.Length];
@@ -59,6 +60,9 @@ namespace ImageProcessingToolParallel.Desktop.Managers
 
                     await LoadAllThumbnailsAsync(batch, token);
                     // Yield control back to UI thread so it can render
+
+                    double progressPercentage = (i + this.BatchSize) / (double)imageModels.Length * 100;
+                    progress.Report(progressPercentage);
                     await Task.Delay(100);
                 }
             }, DispatcherPriority.Background);

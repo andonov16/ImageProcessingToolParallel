@@ -19,6 +19,20 @@ namespace ImageProcessingToolParallel.Desktop
     /// </summary>
     public partial class MainWindow : Window
     {
+        public double ProgressValue
+        {
+            get { return ProcessesProgressBar.Value; }
+            set
+            { 
+                ProcessesProgressBar.Value = value;
+                if (ProcessesProgressBar.Value == ProcessesProgressBar.Maximum) 
+                {
+                    ProcessesProgressBar.Visibility = Visibility.Hidden;
+                }
+            }
+        }
+
+
         private ImageModelLoadManager imageModelLoadManager;
         private CancellationTokenSource cancellationTokenSource;
 
@@ -40,7 +54,12 @@ namespace ImageProcessingToolParallel.Desktop
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            await imageModelLoadManager.LoadAllImagesAsThumbnailControlsAsync(this.ThumbnailControls, cancellationTokenSource.Token);
+            var progress = new Progress<double>(value =>
+            {
+                ProgressValue = value; // Update the progress bar
+            });
+
+            await imageModelLoadManager.LoadAllImagesAsThumbnailControlsAsync(this.ThumbnailControls, cancellationTokenSource.Token, progress);
         }
 
         private void CancelAllButton_Click(object sender, RoutedEventArgs e)

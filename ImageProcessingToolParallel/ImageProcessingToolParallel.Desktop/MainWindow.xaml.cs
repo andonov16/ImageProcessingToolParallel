@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using ImageProcessingToolParallel.Desktop.Managers;
+using ImageProcessingToolParallel.Desktop.Models;
+using System.Collections.ObjectModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +19,33 @@ namespace ImageProcessingToolParallel.Desktop
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ImageModelLoadManager imageModelLoadManager;
+        private CancellationTokenSource cancellationTokenSource;
+
+        public ObservableCollection<ThumbnailControl> ThumbnailControls { get; set; }
+
+
+
         public MainWindow()
         {
             InitializeComponent();
+            this.ThumbnailControls = new ObservableCollection<ThumbnailControl>();
+            this.ThumbnailControlItems.ItemsSource = ThumbnailControls;
+
+            this.imageModelLoadManager = new ImageModelLoadManager();
+            this.cancellationTokenSource = new CancellationTokenSource();
+        }
+
+
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            await imageModelLoadManager.LoadAllImagesAsThumbnailControlsAsync(this.ThumbnailControls, cancellationTokenSource.Token);
+        }
+
+        private void CancelAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            cancellationTokenSource.Cancel();
         }
     }
 }

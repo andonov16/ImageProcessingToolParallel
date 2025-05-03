@@ -5,8 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageProcessingToolParallel.Desktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800" Background="#27233A"
+        Loaded="Window_Loaded">
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
+        <Grid x:Name="TopBarGrid" Margin="0,0, -5, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="350"/>
+                <ColumnDefinition MaxWidth="75"/>
+                <ColumnDefinition MaxWidth="75"/>
+                <ColumnDefinition MaxWidth="75"/>
+                <ColumnDefinition MaxWidth="75"/>
+                <ColumnDefinition MaxWidth="75"/>
+                <ColumnDefinition MaxWidth="75"/>
+                <ColumnDefinition MaxWidth="75"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="SearchBarTextBox" Grid.Column="0" MaxHeight="50"/>
+
+            <Button Grid.Column="1" x:Name="SearchButton" Content="&#xE721;" Style="{StaticResource ThumbnailButtonStyle}" MaxHeight="50" MaxWidth="50"/>
+            <Button Grid.Column="2" x:Name="ResizeAllButton" Content="&#xE2B2;" Style="{StaticResource ThumbnailButtonStyle}"/>
+            <Button Grid.Column="3" x:Name="ToGrayScaleAllButton" Content="&#xE790;" Style="{StaticResource ThumbnailButtonStyle}"/>
+            <Button Grid.Column="4" x:Name="UndoChangesAllButton" Content="&#xE10E;" Style="{StaticResource ThumbnailButtonStyle}"/>
+            <Button Grid.Column="5" x:Name="SaveAllButton" Content="&#xE105;" Style="{StaticResource ThumbnailButtonStyle}"/>
+            <Button Grid.Column="6" x:Name="CancelAllButton" Content="&#xe711;" Style="{StaticResource ThumbnailButtonStyle}" Click="CancelAllButton_Click"/>
+            <Button Grid.Column="7" x:Name="SettingsButton" Content="&#xE713;" Style="{StaticResource ThumbnailButtonStyle}"/>
+        </Grid>
+
+        <ScrollViewer Style="{StaticResource ThumbnailsScrollViewerStyle}">
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <ItemsControl Name="ThumbnailControlItems" HorizontalAlignment="Center">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </WrapPanel>
+        </ScrollViewer>
     </Grid>
 </Window>

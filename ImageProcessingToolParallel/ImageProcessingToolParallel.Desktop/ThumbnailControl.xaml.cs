@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageProcessingToolParallel.Desktop.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace ImageProcessingToolParallel.Desktop
 {
@@ -20,9 +22,33 @@ namespace ImageProcessingToolParallel.Desktop
     /// </summary>
     public partial class ThumbnailControl : UserControl
     {
+        public ImageModel ImageModel
+        {
+            get { return (ImageModel)GetValue(ImageModelProperty); }
+            set { SetValue(ImageModelProperty, value); }
+        }
+
+
+
         public ThumbnailControl()
         {
             InitializeComponent();
+        }
+
+
+
+        public static readonly DependencyProperty ImageModelProperty =
+            DependencyProperty.Register("ImageModel", typeof(ImageModel), typeof(ThumbnailControl),
+                new PropertyMetadata(null, OnImageModelChanged));
+
+
+        private static void OnImageModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = d as ThumbnailControl;
+            if (control != null)
+            {
+                control.DataContext = e.NewValue;
+            }
         }
     }
 }

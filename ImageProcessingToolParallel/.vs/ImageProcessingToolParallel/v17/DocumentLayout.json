@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "D:\\University\\6th_Semester\\Parallel_async_programming\\ImageProcessingToolParallel\\ImageProcessingToolParallel\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C80E2583-58C4-4CFD-9C73-B0F3AD126FB5}|ImageProcessingToolParallel.Desktop\\ImageProcessingToolParallel.Desktop.csproj|d:\\university\\6th_semester\\parallel_async_programming\\imageprocessingtoolparallel\\imageprocessingtoolparallel\\imageprocessingtoolparallel.desktop\\thumbnailcontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C80E2583-58C4-4CFD-9C73-B0F3AD126FB5}|ImageProcessingToolParallel.Desktop\\ImageProcessingToolParallel.Desktop.csproj|solutionrelative:imageprocessingtoolparallel.desktop\\thumbnailcontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C80E2583-58C4-4CFD-9C73-B0F3AD126FB5}|ImageProcessingToolParallel.Desktop\\ImageProcessingToolParallel.Desktop.csproj|d:\\university\\6th_semester\\parallel_async_programming\\imageprocessingtoolparallel\\imageprocessingtoolparallel\\imageprocessingtoolparallel.desktop\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C80E2583-58C4-4CFD-9C73-B0F3AD126FB5}|ImageProcessingToolParallel.Desktop\\ImageProcessingToolParallel.Desktop.csproj|solutionrelative:imageprocessingtoolparallel.desktop\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{C80E2583-58C4-4CFD-9C73-B0F3AD126FB5}|ImageProcessingToolParallel.Desktop\\ImageProcessingToolParallel.Desktop.csproj|d:\\university\\6th_semester\\parallel_async_programming\\imageprocessingtoolparallel\\imageprocessingtoolparallel\\imageprocessingtoolparallel.desktop\\managers\\imagemodelloadmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C80E2583-58C4-4CFD-9C73-B0F3AD126FB5}|ImageProcessingToolParallel.Desktop\\ImageProcessingToolParallel.Desktop.csproj|solutionrelative:imageprocessingtoolparallel.desktop\\managers\\imagemodelloadmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,30 +14,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "App.xaml",
-              "DocumentMoniker": "D:\\University\\6th_Semester\\Parallel_async_programming\\ImageProcessingToolParallel\\ImageProcessingToolParallel\\ImageProcessingToolParallel.Desktop\\App.xaml",
-              "RelativeDocumentMoniker": "ImageProcessingToolParallel.Desktop\\App.xaml",
-              "ToolTip": "D:\\University\\6th_Semester\\Parallel_async_programming\\ImageProcessingToolParallel\\ImageProcessingToolParallel\\ImageProcessingToolParallel.Desktop\\App.xaml",
-              "RelativeToolTip": "ImageProcessingToolParallel.Desktop\\App.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-01T19:54:04.889Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ThumbnailControl.xaml",
-              "DocumentMoniker": "D:\\University\\6th_Semester\\Parallel_async_programming\\ImageProcessingToolParallel\\ImageProcessingToolParallel\\ImageProcessingToolParallel.Desktop\\ThumbnailControl.xaml",
-              "RelativeDocumentMoniker": "ImageProcessingToolParallel.Desktop\\ThumbnailControl.xaml",
-              "ToolTip": "D:\\University\\6th_Semester\\Parallel_async_programming\\ImageProcessingToolParallel\\ImageProcessingToolParallel\\ImageProcessingToolParallel.Desktop\\ThumbnailControl.xaml",
-              "RelativeToolTip": "ImageProcessingToolParallel.Desktop\\ThumbnailControl.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-01T19:45:53.327Z",
+              "Title": "ImageModelLoadManager.cs",
+              "DocumentMoniker": "D:\\University\\6th_Semester\\Parallel_async_programming\\ImageProcessingToolParallel\\ImageProcessingToolParallel\\ImageProcessingToolParallel.Desktop\\Managers\\ImageModelLoadManager.cs",
+              "RelativeDocumentMoniker": "ImageProcessingToolParallel.Desktop\\Managers\\ImageModelLoadManager.cs",
+              "ToolTip": "D:\\University\\6th_Semester\\Parallel_async_programming\\ImageProcessingToolParallel\\ImageProcessingToolParallel\\ImageProcessingToolParallel.Desktop\\Managers\\ImageModelLoadManager.cs",
+              "RelativeToolTip": "ImageProcessingToolParallel.Desktop\\Managers\\ImageModelLoadManager.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-03T20:43:56.555Z",
               "EditorCaption": ""
             }
           ]

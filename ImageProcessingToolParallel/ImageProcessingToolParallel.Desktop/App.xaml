@@ -18,6 +18,20 @@
             <Setter Property="Foreground" Value="#27233A"/>
             <Setter Property="Background" Value="#EAEFD3"/>
             <Setter Property="Margin" Value="5"/>
+            
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="MaxWidth" Value="75"/>
+            <Setter Property="MaxHeight" Value="75"/>
+        </Style>
+
+
+        <Style x:Key="ThumbnailsScrollViewerStyle" TargetType="ScrollViewer">
+            <Setter Property="Background" Value="#EAEFD3"/>
+            <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True"/>
+            <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="Grid.Row" Value="1"/>
         </Style>
     </Application.Resources>
 </Application>

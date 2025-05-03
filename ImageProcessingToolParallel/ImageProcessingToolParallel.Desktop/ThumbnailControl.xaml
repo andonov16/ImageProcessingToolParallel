@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ImageProcessingToolParallel.Desktop"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="200" Background="#27233A">
+             d:DesignHeight="200" d:DesignWidth="200" Background="#27233A" Margin="10">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -13,10 +13,17 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="ImageNameTextBlock" Style="{StaticResource ImageNameStyle}">myImage123.png</TextBlock>
-        
-        <Image Width="128" Height="128" Grid.Row="1"/>
+        <!-- Bind to ImageName -->
+        <TextBlock x:Name="ImageNameTextBlock"
+                   Text="{Binding ImageName}"
+                   Style="{StaticResource ImageNameStyle}" />
 
+        <!-- Bind to Thumbnail -->
+        <Image Width="128" Height="128"
+               Grid.Row="1"
+               Source="{Binding Thumbnail}" />
+
+        <!-- Buttons -->
         <Grid x:Name="ImageButtonsGrid" Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -25,10 +32,18 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" x:Name="ThumbnailResizeButton" Content="&#xE2B2;" Style="{StaticResource ThumbnailButtonStyle}"/>
-            <Button Grid.Column="1" x:Name="ThumbnailToGrayScaleButton" Content="&#xE790;" Style="{StaticResource ThumbnailButtonStyle}"/>
-            <Button Grid.Column="2" x:Name="ThumbnailUndoChangesButton" Content="&#xE10E;" Style="{StaticResource ThumbnailButtonStyle}"/>
-            <Button Grid.Column="3" x:Name="ThumbnailSaveButton" Content="&#xE105;" Style="{StaticResource ThumbnailButtonStyle}"/>
+            <Button Grid.Column="0" x:Name="ThumbnailResizeButton"
+                    Content="&#xE2B2;"
+                    Style="{StaticResource ThumbnailButtonStyle}"/>
+            <Button Grid.Column="1" x:Name="ThumbnailToGrayScaleButton"
+                    Content="&#xE790;"
+                    Style="{StaticResource ThumbnailButtonStyle}"/>
+            <Button Grid.Column="2" x:Name="ThumbnailUndoChangesButton"
+                    Content="&#xE10E;"
+                    Style="{StaticResource ThumbnailButtonStyle}"/>
+            <Button Grid.Column="3" x:Name="ThumbnailSaveButton"
+                    Content="&#xE105;"
+                    Style="{StaticResource ThumbnailButtonStyle}"/>
         </Grid>
     </Grid>
 </UserControl>

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ImageProcessingToolParallel.Desktop")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ffac2534b95ac16047042d157dad3382c9b2cb22")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+39ab28effb060c9d2c4758968bc84cd50d56fed1")]
 [assembly: System.Reflection.AssemblyProductAttribute("ImageProcessingToolParallel.Desktop")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ImageProcessingToolParallel.Desktop")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

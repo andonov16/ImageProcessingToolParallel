@@ -50,7 +50,10 @@ namespace ImageProcessingToolParallel.Desktop.Managers
                 for (int i = 0; i < imageModels.Length; i += this.BatchSize)
                 {
                     if (token.IsCancellationRequested)
+                    {
+                        progress.Report(100);
                         break;
+                    }
 
                     var batch = imageModels.Skip(i).Take(this.BatchSize);
                     foreach (var model in batch)

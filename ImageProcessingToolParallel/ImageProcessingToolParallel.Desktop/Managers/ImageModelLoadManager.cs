@@ -13,24 +13,8 @@ using System.Diagnostics;
 
 namespace ImageProcessingToolParallel.Desktop.Managers
 {
-    public class ImageModelLoadManager
+    public class ImageModelLoadManager:ImageModelManager
     {
-        public int BatchSize { get; }
-
-
-
-        public ImageModelLoadManager()
-        {
-            this.BatchSize = 32;
-        }
-
-        public ImageModelLoadManager(int batchSize)
-        {
-            this.BatchSize = batchSize;
-        }
-
-
-
         public async Task LoadAllImagesAsThumbnailControlsAsync(ObservableCollection<ThumbnailControl> thumbnailControls, CancellationToken token, IProgress<double> progress)
         {
             string[] imagesPaths = Directory.GetFiles(App.AppConfiguration["ImageDatasetPath"]);
@@ -90,7 +74,6 @@ namespace ImageProcessingToolParallel.Desktop.Managers
                 return (image, bitmap);
             }, token);
         }
-
 
         private async Task LoadAllThumbnailsAsync(IEnumerable<ImageModel> images, CancellationToken token)
         {

@@ -6,19 +6,21 @@ using System.Windows.Threading;
 using System.Windows.Media;
 using System.IO;
 using System.Threading;
-
-
 namespace ImageProcessingToolParallel.Desktop.Managers
 {
-    public class ImageModelColorManager : ImageModelManager
+    public class ImageModelResizeManager : ImageModelManager
     {
-        public async Task ChangeAllImagesColorAsync(ObservableCollection<ThumbnailControl> thumbnailControls, CancellationToken token, IProgress<double> progress)
+        public double ScaleWidth { get; set; } = 0.5;
+        public double ScaleHeight { get; set; } = 0.5;
+
+
+
+        public async Task ResizeAllImagesAsync(ObservableCollection<ThumbnailControl> thumbnailControls, CancellationToken token, IProgress<double> progress)
         {
             ImageModel[] imageModels = thumbnailControls.Select(t => t.ImageModel).ToArray();
 
             await Application.Current.Dispatcher.InvokeAsync(async () =>
             {
-                // Process images in batches
                 for (int i = 0; i < imageModels.Length; i += BatchSize)
                 {
                     if (token.IsCancellationRequested)
@@ -28,65 +30,53 @@ namespace ImageProcessingToolParallel.Desktop.Managers
                     }
 
                     var batch = imageModels.Skip(i).Take(BatchSize).ToArray();
-                    await ColorConvertAllThumbnailsAsync(batch, token);
+                    await ResizeAllThumbnailsAsync(batch, token);
 
-                    // Calculate progress
                     double progressPercentage = Math.Min(100, (i + BatchSize) / (double)imageModels.Length * 100);
                     progress.Report(progressPercentage);
 
-                    // To simulate asynchronous work
                     await Task.Delay(100);
                 }
             }, DispatcherPriority.Render);
         }
 
-
-
-
-        private Task<(ImageModel image, BitmapImage thumbnail)> GetThumbnailColorConvertionTask(ImageModel image, CancellationToken token)
+        private async Task<(ImageModel image, BitmapImage thumbnail)> GetResizedThumbnailTask(ImageModel image, CancellationToken token)
         {
-            return Task.Run(() =>
+            return await Task.Run(() =>
             {
-                if (!IsGrayscale(image.Thumbnail))
-                {
-                    // Freeze the original thumbnail so it can be used safely off the UI thread
-                    image.Thumbnail.Freeze();
+                token.ThrowIfCancellationRequested();
 
-                    var formatted = new FormatConvertedBitmap();
-                    formatted.BeginInit();
-                    formatted.Source = image.Thumbnail;
-                    formatted.DestinationFormat = PixelFormats.Gray32Float;
-                    formatted.EndInit();
-                    // Freeze before using it off the thread
-                    formatted.Freeze();
+                // Freeze the original thumbnail to make it cross-thread accessible
+                image.Thumbnail.Freeze();
 
-                    using var stream = new MemoryStream();
-                    var encoder = new PngBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(formatted));
-                    encoder.Save(stream);
-                    stream.Seek(0, SeekOrigin.Begin);
+                // Calculate scale transform
+                var scaleTransform = new ScaleTransform(this.ScaleWidth, this.ScaleHeight);
 
-                    var bmp = new BitmapImage();
-                    bmp.BeginInit();
-                    bmp.StreamSource = stream;
-                    bmp.CacheOption = BitmapCacheOption.OnLoad;
-                    bmp.EndInit();
-                    // Freeze to safely update Thumbnail later
-                    bmp.Freeze();
+                // Apply the transform
+                var resized = new TransformedBitmap(image.Thumbnail, scaleTransform);
+                resized.Freeze();
 
-                    return (image, bmp);
-                }
-                else
-                {
-                    return (image, image.Thumbnail);
-                }
+                // Encode the transformed bitmap to a memory stream
+                using var stream = new MemoryStream();
+                var encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(resized));
+                encoder.Save(stream);
+                stream.Seek(0, SeekOrigin.Begin);
 
+                // Decode the stream into a BitmapImage
+                var thumbnail = new BitmapImage();
+                thumbnail.BeginInit();
+                thumbnail.StreamSource = stream;
+                thumbnail.CacheOption = BitmapCacheOption.OnLoad;
+                thumbnail.EndInit();
+                thumbnail.Freeze();
+
+                return (image, thumbnail);
             }, token);
         }
 
 
-
-        private async Task ColorConvertAllThumbnailsAsync(IEnumerable<ImageModel> images, CancellationToken token)
+        private async Task ResizeAllThumbnailsAsync(IEnumerable<ImageModel> images, CancellationToken token)
         {
             int maxConcurrency = Environment.ProcessorCount * 2;
             SemaphoreSlim semaphore = new SemaphoreSlim(maxConcurrency);
@@ -95,7 +85,7 @@ namespace ImageProcessingToolParallel.Desktop.Managers
             foreach (var image in images)
             {
                 await semaphore.WaitAsync(token);
-                Task<(ImageModel image, BitmapImage thumbnail)> task = GetThumbnailColorConvertionTask(image, token)
+                Task<(ImageModel image, BitmapImage thumbnail)> task = GetResizedThumbnailTask(image, token)
                     .ContinueWith(t =>
                     {
                         semaphore.Release();
@@ -105,7 +95,6 @@ namespace ImageProcessingToolParallel.Desktop.Managers
                 loadTasks.Add(task);
             }
 
-            // Batch update
             var results = new List<(ImageModel, BitmapImage)>();
             foreach (var completedTask in await Task.WhenAll(loadTasks))
             {
@@ -123,7 +112,6 @@ namespace ImageProcessingToolParallel.Desktop.Managers
                 }
             }
 
-            // Handle leftovers in the last batch
             if (results.Count > 0)
             {
                 await Application.Current.Dispatcher.InvokeAsync(() =>
@@ -132,15 +120,6 @@ namespace ImageProcessingToolParallel.Desktop.Managers
                         image.Thumbnail = thumbnail;
                 }, DispatcherPriority.ApplicationIdle);
             }
-        }
-
-
-
-        private bool IsGrayscale(BitmapImage bitmap)
-        {
-            return bitmap.Format == PixelFormats.Gray8 ||
-                   bitmap.Format == PixelFormats.Gray16 ||
-                   bitmap.Format == PixelFormats.BlackWhite;
         }
     }
 }

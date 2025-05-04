@@ -40,6 +40,8 @@ namespace ImageProcessingToolParallel.Desktop
 
         private ImageModelLoadManager imageModelLoadManager;
         private ImageModelColorManager imageModelColorManager;
+        private ImageModelResizeManager imageModelResizeManager;
+
         private CancellationTokenSource cancellationTokenSource;
 
         public ObservableCollection<ThumbnailControl> ThumbnailControls { get; set; }
@@ -54,6 +56,8 @@ namespace ImageProcessingToolParallel.Desktop
 
             this.imageModelLoadManager = new ImageModelLoadManager();
             this.imageModelColorManager = new ImageModelColorManager();
+            this.imageModelResizeManager = new ImageModelResizeManager();
+
             this.cancellationTokenSource = new CancellationTokenSource();
         }
 
@@ -83,6 +87,17 @@ namespace ImageProcessingToolParallel.Desktop
 
             progress.Report(0);
             await imageModelColorManager.ChangeAllImagesColorAsync(this.ThumbnailControls, this.cancellationTokenSource.Token, progress);
+        }
+
+        private async void ResizeAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            IProgress<double> progress = new Progress<double>(value =>
+            {
+                ProgressValue = value;
+            });
+
+            progress.Report(0);
+            await imageModelResizeManager.ResizeAllImagesAsync(this.ThumbnailControls, this.cancellationTokenSource.Token, progress);
         }
     }
 }

@@ -49,7 +49,6 @@ namespace ImageProcessingToolParallel.Desktop.Managers
 
                     double progressPercentage = (i + this.BatchSize) / (double)imageModels.Length * 100;
                     progress.Report(progressPercentage);
-                    await Task.Delay(100);
                 }
             }, DispatcherPriority.Background);
         }
@@ -77,7 +76,7 @@ namespace ImageProcessingToolParallel.Desktop.Managers
 
         private async Task LoadAllThumbnailsAsync(IEnumerable<ImageModel> images, CancellationToken token)
         {
-            int maxConcurrency = Environment.ProcessorCount * 2;
+            int maxConcurrency = Environment.ProcessorCount;
             SemaphoreSlim semaphore = new SemaphoreSlim(maxConcurrency);
             List<Task<(ImageModel, BitmapImage)>> loadTasks = new();
 

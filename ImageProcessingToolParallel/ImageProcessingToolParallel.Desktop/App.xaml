@@ -10,11 +10,13 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="Calibri"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
 
 
         <Style x:Key="ThumbnailButtonStyle" TargetType="Button">
             <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="Foreground" Value="#27233A"/>
             <Setter Property="Background" Value="#EAEFD3"/>
             <Setter Property="Margin" Value="5"/>
@@ -32,6 +34,40 @@
             <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
             <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
             <Setter Property="Grid.Row" Value="1"/>
+        </Style>
+
+        <Style x:Key="SearchbarStyle" TargetType="TextBox">
+            <Setter Property="Padding" Value="30,5,10,5"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="#FFF"/>
+            <Setter Property="BorderBrush" Value="#CCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="15">
+                                <Grid>
+                                    <TextBlock Text="🔍"
+                                           FontSize="14"
+                                           VerticalAlignment="Center"
+                                           Margin="10,0,0,0"
+                                           Foreground="#27233A"/>
+
+                                    <ScrollViewer Margin="25,0,0,0"
+                                              VerticalAlignment="Center"
+                                              x:Name="PART_ContentHost"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Application.Resources>
 </Application>

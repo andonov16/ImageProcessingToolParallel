@@ -24,7 +24,7 @@
                Source="{Binding Thumbnail}" />
 
         <!-- Buttons -->
-        <Grid x:Name="ImageButtonsGrid" Grid.Row="2">
+        <!--<Grid x:Name="ImageButtonsGrid" Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -44,6 +44,6 @@
             <Button Grid.Column="3" x:Name="ThumbnailSaveButton"
                     Content="&#xE105;"
                     Style="{StaticResource ThumbnailButtonStyle}"/>
-        </Grid>
+        </Grid>-->
     </Grid>
 </UserControl>

@@ -76,6 +76,7 @@ namespace ImageProcessingToolParallel.Desktop
         private void CancelAllButton_Click(object sender, RoutedEventArgs e)
         {
             cancellationTokenSource.Cancel();
+            cancellationTokenSource = new CancellationTokenSource();
         }
 
         private async void ToGrayScaleAllButton_Click(object sender, RoutedEventArgs e)

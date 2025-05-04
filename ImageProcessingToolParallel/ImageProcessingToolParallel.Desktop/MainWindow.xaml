@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageProcessingToolParallel.Desktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#27233A"
+        Title="Image Processing Tool" Height="450" Width="800" Background="#27233A"
         Loaded="Window_Loaded">
     
     <Grid Margin="20">
@@ -40,7 +40,7 @@
             <Button Grid.Column="4" x:Name="UndoChangesAllButton" Content="&#xE10E;" Style="{StaticResource ThumbnailButtonStyle}"/>
             <Button Grid.Column="5" x:Name="SaveAllButton" Content="&#xE105;" Style="{StaticResource ThumbnailButtonStyle}" Click="SaveAllButton_Click"/>
             <Button Grid.Column="6" x:Name="CancelAllButton" Content="&#xe711;" Style="{StaticResource ThumbnailButtonStyle}" Click="CancelAllButton_Click"/>
-            <Button Grid.Column="7" x:Name="SettingsButton" Content="&#xE713;" Style="{StaticResource ThumbnailButtonStyle}"/>
+            <Button Grid.Column="7" x:Name="SettingsButton" Content="&#xE713;" Style="{StaticResource ThumbnailButtonStyle}" Click="SettingsButton_Click"/>
         </Grid>
 
         <ScrollViewer Style="{StaticResource ThumbnailsScrollViewerStyle}" Grid.Row="2">

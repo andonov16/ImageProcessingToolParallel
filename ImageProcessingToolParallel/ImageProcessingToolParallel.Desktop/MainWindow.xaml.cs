@@ -128,5 +128,11 @@ namespace ImageProcessingToolParallel.Desktop
                     ? Visibility.Visible : Visibility.Collapsed;
             });
         }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow sw = new SettingsWindow();
+            sw.ShowDialog();
+        }
     }
 }

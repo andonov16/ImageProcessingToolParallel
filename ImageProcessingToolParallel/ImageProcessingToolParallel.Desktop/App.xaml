@@ -69,5 +69,19 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+
+        <Style x:Key="SettingsButton" TargetType="Button">
+            <Setter Property="Foreground" Value="#27233A"/>
+            <Setter Property="Background" Value="#EAEFD3"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="SettingsTextBlock" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#EAEFD3"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
     </Application.Resources>
 </Application>

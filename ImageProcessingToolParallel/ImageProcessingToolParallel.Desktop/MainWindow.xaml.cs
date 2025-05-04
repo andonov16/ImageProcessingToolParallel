@@ -44,6 +44,7 @@ namespace ImageProcessingToolParallel.Desktop
         private ImageModelSaveManager imageModelSaveManager;
 
         private CancellationTokenSource cancellationTokenSource;
+        private CancellationTokenSource searchCancellationTokenSource;
 
         public ObservableCollection<ThumbnailControl> ThumbnailControls { get; set; }
 
@@ -60,6 +61,7 @@ namespace ImageProcessingToolParallel.Desktop
             this.imageModelResizeManager = new ImageModelResizeManager();
             this.imageModelSaveManager = new ImageModelSaveManager();
 
+            this.cancellationTokenSource = new CancellationTokenSource();
             this.cancellationTokenSource = new CancellationTokenSource();
         }
 
@@ -113,6 +115,18 @@ namespace ImageProcessingToolParallel.Desktop
             progress.Report(0);
 
             await imageModelSaveManager.TransformAllImagesAsync(this.ThumbnailControls, this.cancellationTokenSource.Token, progress);
+        }
+
+        private void SearchBarTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchQuery = SearchBarTextBox.Text.ToLower();
+            ImageModel[] imageModels = ThumbnailControls.Select(t => t.ImageModel).ToArray();
+
+            imageModels.AsParallel().ForAll(img =>
+            {
+                img.ImageVisibility = img.ImageName.ToLower().StartsWith(searchQuery)
+                    ? Visibility.Visible : Visibility.Collapsed;
+            });
         }
     }
 }

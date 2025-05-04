@@ -25,7 +25,8 @@ namespace ImageProcessingToolParallel.Desktop.Managers
                 imageModels[i] = new ImageModel()
                 {
                     ImageName = Path.GetFileName(imagesPaths[i]),
-                    ImagePath = imagesPaths[i]
+                    ImagePath = imagesPaths[i],
+                    ImageVisibility = Visibility.Visible
                 };
             }
 

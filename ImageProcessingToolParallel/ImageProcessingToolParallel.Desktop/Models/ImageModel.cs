@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace ImageProcessingToolParallel.Desktop.Models
@@ -6,6 +7,7 @@ namespace ImageProcessingToolParallel.Desktop.Models
     public class ImageModel: INotifyPropertyChanged
     {
         private BitmapImage thumbnail;
+        private Visibility imageVisibility;     
 
 
         public string ImageName { get; set; }
@@ -19,6 +21,18 @@ namespace ImageProcessingToolParallel.Desktop.Models
                 {
                     thumbnail = value;
                     OnPropertyChanged(nameof(thumbnail));
+                }
+            }
+        }
+        public Visibility ImageVisibility
+        {
+            get { return imageVisibility; }
+            set
+            {
+                if (imageVisibility != value)
+                {
+                    imageVisibility = value;
+                    OnPropertyChanged(nameof(imageVisibility));
                 }
             }
         }

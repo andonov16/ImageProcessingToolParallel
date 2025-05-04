@@ -32,9 +32,9 @@
                 <ColumnDefinition MaxWidth="75"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="SearchBarTextBox" Grid.Column="0" MaxHeight="50"/>
+            <TextBox x:Name="SearchBarTextBox" Grid.Column="0" MaxHeight="50" TextChanged="SearchBarTextBox_TextChanged"/>
 
-            <Button Grid.Column="1" x:Name="SearchButton" Content="&#xE721;" Style="{StaticResource ThumbnailButtonStyle}" MaxHeight="50" MaxWidth="50"/>
+            <!--<Button Grid.Column="1" x:Name="SearchButton" Content="&#xE721;" Style="{StaticResource ThumbnailButtonStyle}" MaxHeight="50" MaxWidth="50"/>-->
             <Button Grid.Column="2" x:Name="ResizeAllButton" Content="&#xE2B2;" Style="{StaticResource ThumbnailButtonStyle}" Click="ResizeAllButton_Click"/>
             <Button Grid.Column="3" x:Name="ToGrayScaleAllButton" Content="&#xE790;" Style="{StaticResource ThumbnailButtonStyle}" Click="ToGrayScaleAllButton_Click"/>
             <Button Grid.Column="4" x:Name="UndoChangesAllButton" Content="&#xE10E;" Style="{StaticResource ThumbnailButtonStyle}"/>

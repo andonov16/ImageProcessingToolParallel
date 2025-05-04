@@ -41,6 +41,7 @@ namespace ImageProcessingToolParallel.Desktop
         private ImageModelLoadManager imageModelLoadManager;
         private ImageModelColorManager imageModelColorManager;
         private ImageModelResizeManager imageModelResizeManager;
+        private ImageModelSaveManager imageModelSaveManager;
 
         private CancellationTokenSource cancellationTokenSource;
 
@@ -57,6 +58,7 @@ namespace ImageProcessingToolParallel.Desktop
             this.imageModelLoadManager = new ImageModelLoadManager();
             this.imageModelColorManager = new ImageModelColorManager();
             this.imageModelResizeManager = new ImageModelResizeManager();
+            this.imageModelSaveManager = new ImageModelSaveManager();
 
             this.cancellationTokenSource = new CancellationTokenSource();
         }
@@ -99,6 +101,18 @@ namespace ImageProcessingToolParallel.Desktop
 
             progress.Report(0);
             await imageModelResizeManager.TransformAllImagesAsync(this.ThumbnailControls, this.cancellationTokenSource.Token, progress);
+        }
+
+        private async void SaveAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            IProgress<double> progress = new Progress<double>(value =>
+            {
+                ProgressValue = value;
+            });
+
+            progress.Report(0);
+
+            await imageModelSaveManager.TransformAllImagesAsync(this.ThumbnailControls, this.cancellationTokenSource.Token, progress);
         }
     }
 }

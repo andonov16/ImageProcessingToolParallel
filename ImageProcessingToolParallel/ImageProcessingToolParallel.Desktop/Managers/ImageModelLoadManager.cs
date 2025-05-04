@@ -17,7 +17,13 @@ namespace ImageProcessingToolParallel.Desktop.Managers
     {
         public override async Task TransformAllImagesAsync(ObservableCollection<ThumbnailControl> thumbnailControls, CancellationToken token, IProgress<double> progress)
         {
-            string[] imagesPaths = Directory.GetFiles(App.AppConfiguration["ImageDatasetPath"]);
+            string inputPath = App.AppConfiguration["ImageDatasetPath"];
+
+            string resolvedPath = Path.IsPathRooted(inputPath)
+                ? inputPath
+                : Path.Combine(AppContext.BaseDirectory, inputPath);
+            string[] imagesPaths = Directory.GetFiles(resolvedPath);
+
             ImageModel[] imageModels = new ImageModel[imagesPaths.Length];
 
             for (int i = 0; i < imagesPaths.Length; i++)

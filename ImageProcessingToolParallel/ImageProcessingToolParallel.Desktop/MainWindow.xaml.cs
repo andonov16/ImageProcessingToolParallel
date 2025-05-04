@@ -70,7 +70,7 @@ namespace ImageProcessingToolParallel.Desktop
                 ProgressValue = value;
             });
 
-            await imageModelLoadManager.LoadAllImagesAsThumbnailControlsAsync(this.ThumbnailControls, this.cancellationTokenSource.Token, progress);
+            await imageModelLoadManager.TransformAllImagesAsync(this.ThumbnailControls, this.cancellationTokenSource.Token, progress);
         }
 
         private void CancelAllButton_Click(object sender, RoutedEventArgs e)
@@ -86,7 +86,7 @@ namespace ImageProcessingToolParallel.Desktop
             });
 
             progress.Report(0);
-            await imageModelColorManager.ChangeAllImagesColorAsync(this.ThumbnailControls, this.cancellationTokenSource.Token, progress);
+            await imageModelColorManager.TransformAllImagesAsync(this.ThumbnailControls, this.cancellationTokenSource.Token, progress);
         }
 
         private async void ResizeAllButton_Click(object sender, RoutedEventArgs e)
@@ -97,7 +97,7 @@ namespace ImageProcessingToolParallel.Desktop
             });
 
             progress.Report(0);
-            await imageModelResizeManager.ResizeAllImagesAsync(this.ThumbnailControls, this.cancellationTokenSource.Token, progress);
+            await imageModelResizeManager.TransformAllImagesAsync(this.ThumbnailControls, this.cancellationTokenSource.Token, progress);
         }
     }
 }

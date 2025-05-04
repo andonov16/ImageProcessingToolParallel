@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "D:\\University\\6th_Semester\\Parallel_async_programming\\ImageProcessingToolParallel\\ImageProcessingToolParallel\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C80E2583-58C4-4CFD-9C73-B0F3AD126FB5}|ImageProcessingToolParallel.Desktop\\ImageProcessingToolParallel.Desktop.csproj|d:\\university\\6th_semester\\parallel_async_programming\\imageprocessingtoolparallel\\imageprocessingtoolparallel\\imageprocessingtoolparallel.desktop\\managers\\imagemodelresizemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C80E2583-58C4-4CFD-9C73-B0F3AD126FB5}|ImageProcessingToolParallel.Desktop\\ImageProcessingToolParallel.Desktop.csproj|solutionrelative:imageprocessingtoolparallel.desktop\\managers\\imagemodelresizemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C80E2583-58C4-4CFD-9C73-B0F3AD126FB5}|ImageProcessingToolParallel.Desktop\\ImageProcessingToolParallel.Desktop.csproj|d:\\university\\6th_semester\\parallel_async_programming\\imageprocessingtoolparallel\\imageprocessingtoolparallel\\imageprocessingtoolparallel.desktop\\managers\\imagemodelmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C80E2583-58C4-4CFD-9C73-B0F3AD126FB5}|ImageProcessingToolParallel.Desktop\\ImageProcessingToolParallel.Desktop.csproj|solutionrelative:imageprocessingtoolparallel.desktop\\managers\\imagemodelmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ImageModelResizeManager.cs",
-              "DocumentMoniker": "D:\\University\\6th_Semester\\Parallel_async_programming\\ImageProcessingToolParallel\\ImageProcessingToolParallel\\ImageProcessingToolParallel.Desktop\\Managers\\ImageModelResizeManager.cs",
-              "RelativeDocumentMoniker": "ImageProcessingToolParallel.Desktop\\Managers\\ImageModelResizeManager.cs",
-              "ToolTip": "D:\\University\\6th_Semester\\Parallel_async_programming\\ImageProcessingToolParallel\\ImageProcessingToolParallel\\ImageProcessingToolParallel.Desktop\\Managers\\ImageModelResizeManager.cs",
-              "RelativeToolTip": "ImageProcessingToolParallel.Desktop\\Managers\\ImageModelResizeManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHsAAAAFAAAAAAAAAA==",
+              "Title": "ImageModelManager.cs",
+              "DocumentMoniker": "D:\\University\\6th_Semester\\Parallel_async_programming\\ImageProcessingToolParallel\\ImageProcessingToolParallel\\ImageProcessingToolParallel.Desktop\\Managers\\ImageModelManager.cs",
+              "RelativeDocumentMoniker": "ImageProcessingToolParallel.Desktop\\Managers\\ImageModelManager.cs",
+              "ToolTip": "D:\\University\\6th_Semester\\Parallel_async_programming\\ImageProcessingToolParallel\\ImageProcessingToolParallel\\ImageProcessingToolParallel.Desktop\\Managers\\ImageModelManager.cs",
+              "RelativeToolTip": "ImageProcessingToolParallel.Desktop\\Managers\\ImageModelManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T14:53:13.924Z",
+              "WhenOpened": "2025-05-04T15:35:09.9Z",
               "EditorCaption": ""
             }
           ]

@@ -15,7 +15,7 @@ namespace ImageProcessingToolParallel.Desktop.Managers
 {
     public class ImageModelLoadManager:ImageModelManager
     {
-        public async Task LoadAllImagesAsThumbnailControlsAsync(ObservableCollection<ThumbnailControl> thumbnailControls, CancellationToken token, IProgress<double> progress)
+        public override async Task TransformAllImagesAsync(ObservableCollection<ThumbnailControl> thumbnailControls, CancellationToken token, IProgress<double> progress)
         {
             string[] imagesPaths = Directory.GetFiles(App.AppConfiguration["ImageDatasetPath"]);
             ImageModel[] imageModels = new ImageModel[imagesPaths.Length];
@@ -45,7 +45,7 @@ namespace ImageProcessingToolParallel.Desktop.Managers
                         thumbnailControls.Add(new ThumbnailControl { ImageModel = model, Height=200, Width=200 });
                     }
 
-                    await LoadAllThumbnailsAsync(batch, token);
+                    await ApplyBatchTransformThumbnailsAsync(batch, token);
 
                     double progressPercentage = (i + this.BatchSize) / (double)imageModels.Length * 100;
                     progress.Report(progressPercentage);
@@ -55,7 +55,7 @@ namespace ImageProcessingToolParallel.Desktop.Managers
 
 
 
-        private Task<(ImageModel image, BitmapImage thumbnail)> GetLoadThumbnailTask(ImageModel image, CancellationToken token)
+        protected override Task<(ImageModel image, BitmapImage thumbnail)> GetTransformThumbnailTask(ImageModel image, CancellationToken token)
         {
             return Task.Run(() =>
             {
@@ -73,54 +73,5 @@ namespace ImageProcessingToolParallel.Desktop.Managers
                 return (image, bitmap);
             }, token);
         }
-
-        private async Task LoadAllThumbnailsAsync(IEnumerable<ImageModel> images, CancellationToken token)
-        {
-            int maxConcurrency = Environment.ProcessorCount;
-            SemaphoreSlim semaphore = new SemaphoreSlim(maxConcurrency);
-            List<Task<(ImageModel, BitmapImage)>> loadTasks = new();
-
-            foreach (var image in images)
-            {
-                await semaphore.WaitAsync(token);
-                Task<(ImageModel image, BitmapImage thumbnail)> task = GetLoadThumbnailTask(image, token)
-                    .ContinueWith(t =>
-                    {
-                        semaphore.Release();
-                        return t.Result;
-                    }, token);
-
-                loadTasks.Add(task);
-            }
-
-            // Batch update
-            var results = new List<(ImageModel, BitmapImage)>();
-            foreach (var completedTask in await Task.WhenAll(loadTasks))
-            {
-                results.Add(completedTask);
-
-                if (results.Count >= BatchSize)
-                {
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        foreach (var (image, thumbnail) in results)
-                            image.Thumbnail = thumbnail;
-                    }, DispatcherPriority.ApplicationIdle);
-
-                    results.Clear();
-                }
-            }
-
-            // Handle leftovers in the last batch
-            if (results.Count > 0)
-            {
-                await Application.Current.Dispatcher.InvokeAsync(() =>
-                {
-                    foreach (var (image, thumbnail) in results)
-                        image.Thumbnail = thumbnail;
-                }, DispatcherPriority.ApplicationIdle);
-            }
-        }
-
     }
 }

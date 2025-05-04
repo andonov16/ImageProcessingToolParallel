@@ -6,6 +6,8 @@ using System.Windows.Threading;
 using System.Windows.Media;
 using System.IO;
 using System.Threading;
+
+
 namespace ImageProcessingToolParallel.Desktop.Managers
 {
     public class ImageModelResizeManager : ImageModelManager
@@ -15,32 +17,7 @@ namespace ImageProcessingToolParallel.Desktop.Managers
 
 
 
-        public async Task ResizeAllImagesAsync(ObservableCollection<ThumbnailControl> thumbnailControls, CancellationToken token, IProgress<double> progress)
-        {
-            ImageModel[] imageModels = thumbnailControls.Select(t => t.ImageModel).ToArray();
-
-            await Application.Current.Dispatcher.InvokeAsync(async () =>
-            {
-                for (int i = 0; i < imageModels.Length; i += BatchSize)
-                {
-                    if (token.IsCancellationRequested)
-                    {
-                        progress.Report(100);
-                        break;
-                    }
-
-                    var batch = imageModels.Skip(i).Take(BatchSize).ToArray();
-                    await ResizeAllThumbnailsAsync(batch, token);
-
-                    double progressPercentage = Math.Min(100, (i + BatchSize) / (double)imageModels.Length * 100);
-                    progress.Report(progressPercentage);
-
-                    await Task.Delay(100);
-                }
-            }, DispatcherPriority.Render);
-        }
-
-        private async Task<(ImageModel image, BitmapImage thumbnail)> GetResizedThumbnailTask(ImageModel image, CancellationToken token)
+        protected override async Task<(ImageModel image, BitmapImage thumbnail)> GetTransformThumbnailTask(ImageModel image, CancellationToken token)
         {
             return await Task.Run(() =>
             {
@@ -73,53 +50,6 @@ namespace ImageProcessingToolParallel.Desktop.Managers
 
                 return (image, thumbnail);
             }, token);
-        }
-
-
-        private async Task ResizeAllThumbnailsAsync(IEnumerable<ImageModel> images, CancellationToken token)
-        {
-            int maxConcurrency = Environment.ProcessorCount * 2;
-            SemaphoreSlim semaphore = new SemaphoreSlim(maxConcurrency);
-            List<Task<(ImageModel, BitmapImage)>> loadTasks = new();
-
-            foreach (var image in images)
-            {
-                await semaphore.WaitAsync(token);
-                Task<(ImageModel image, BitmapImage thumbnail)> task = GetResizedThumbnailTask(image, token)
-                    .ContinueWith(t =>
-                    {
-                        semaphore.Release();
-                        return t.Result;
-                    }, token);
-
-                loadTasks.Add(task);
-            }
-
-            var results = new List<(ImageModel, BitmapImage)>();
-            foreach (var completedTask in await Task.WhenAll(loadTasks))
-            {
-                results.Add(completedTask);
-
-                if (results.Count >= BatchSize)
-                {
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        foreach (var (image, thumbnail) in results)
-                            image.Thumbnail = thumbnail;
-                    }, DispatcherPriority.ApplicationIdle);
-
-                    results.Clear();
-                }
-            }
-
-            if (results.Count > 0)
-            {
-                await Application.Current.Dispatcher.InvokeAsync(() =>
-                {
-                    foreach (var (image, thumbnail) in results)
-                        image.Thumbnail = thumbnail;
-                }, DispatcherPriority.ApplicationIdle);
-            }
         }
     }
 }

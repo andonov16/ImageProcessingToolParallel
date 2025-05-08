@@ -46,7 +46,7 @@ The key responsibilities and methods of this class are:
   This is the main entry point, called from the UI thread using `await`. It accepts a collection of `ThumbnailControl` instances, extracts their `ImageModel`s, and processes them in batches asynchronously. Progress is reported incrementally, and cancellation is supported via a `CancellationToken`.
 
 - **`ApplyBatchTransformThumbnailsAsync` (protected virtual)**  
-  Applies transformations to a batch of `ImageModel`s using controlled parallelism. A `SemaphoreSlim` limits concurrency to `2 x CPU cores`, and results are updated on the UI thread using `Dispatcher.InvokeAsync`. Thumbnails are updated in grouped batches for performance.
+  Applies transformations to a batch of `ImageModel`s using controlled parallelism. A `SemaphoreSlim` limits concurrency to `number of CPU cores`, and results are updated on the UI thread using `Dispatcher.InvokeAsync`. Thumbnails are updated in grouped batches for performance.
 
 - **`GetTransformThumbnailTask` (protected abstract, the unit of work)**  
   An abstract method that returns a Task<(ImageModel, BitmapImage)> class that contains the logic for processing a single image.

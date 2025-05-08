@@ -57,7 +57,7 @@ namespace ImageProcessingToolParallel.Desktop.Managers
 
         protected virtual async Task ApplyBatchTransformThumbnailsAsync(IEnumerable<ImageModel> images, CancellationToken token)
         {
-            int maxConcurrency = Environment.ProcessorCount * 2;
+            int maxConcurrency = Environment.ProcessorCount;
             SemaphoreSlim semaphore = new SemaphoreSlim(maxConcurrency);
             List<Task<(ImageModel, BitmapImage)>> loadTasks = new List<Task<(ImageModel, BitmapImage)>>();
 
